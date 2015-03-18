@@ -50,6 +50,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -177,9 +178,17 @@ public class PointSet implements Serializable{
 		return ret;
 	}
 	
-	public static PointSet fromShapefile( File file ) throws IOException, NoSuchAuthorityCodeException, FactoryException, EmptyPolygonException, UnsupportedGeometryException {
+	public static PointSet fromShapefile(File file) throws NoSuchAuthorityCodeException, IOException, FactoryException, EmptyPolygonException, UnsupportedGeometryException {
+		return fromShapefile(file, null, null);
+	}
+	
+	public static PointSet fromShapefile( File file, String idField, List<String> attributeFields ) throws IOException, NoSuchAuthorityCodeException, FactoryException, EmptyPolygonException, UnsupportedGeometryException {
         if ( ! file.exists())
             throw new RuntimeException("Shapefile does not exist.");
+        
+        if (attributeFields == null) {
+        	attributeFields = new ArrayList<String>();
+        }
         
         FileDataStore store = FileDataStoreFinder.getDataStore(file);
         SimpleFeatureSource featureSource = store.getFeatureSource();
@@ -203,25 +212,35 @@ public class PointSet implements Serializable{
             PointFeature ft = new PointFeature();
             ft.setGeom(geom);
             for(Property prop : feature.getProperties() ){
-            	Object binding = prop.getType().getBinding();
             	
-            	//attempt to coerce the prop's value into an integer
-            	int val;
-            	if(binding.equals(Integer.class)){
-            		val = (Integer)prop.getValue();
-            	} else if(binding.equals(Long.class)){
-            		val = ((Long)prop.getValue()).intValue();
-            	} else if(binding.equals(String.class)){
-            		try{
-            			val = Integer.parseInt((String)prop.getValue());
-            		} catch (NumberFormatException ex ){
+            	String propName = prop.getName().toString();
+            	
+            	if (idField != null && propName.equals(idField)) {
+            		
+            		// This is the specified ID field
+            		ft.setId(prop.getValue().toString());
+            		
+            	} else if (attributeFields == null || attributeFields.contains(propName)) {
+            		
+            		// This is an attribute field
+            		Object binding = prop.getType().getBinding();
+            		int val;
+            		if (binding.equals(Integer.class)) {
+            			val = (Integer)prop.getValue();
+            			ft.addAttribute(propName, val);
+            		} else if (binding.equals(Long.class)) {
+            			val = ((Long)prop.getValue()).intValue();
+            			ft.addAttribute(propName, val);
+            		} else {
             			continue;
             		}
+            		
             	} else {
+            		
+            		// This is a field we aren't interested in
             		continue;
+            		
             	}
-            	
-            	ft.addAttribute(prop.getName().toString(), val);
             }
             
             ret.addFeature(ft, i);
