@@ -79,7 +79,7 @@ public class TimeSurface implements Serializable {
         this.id = makeUniqueId();
         this.dateTime = spt.getOptions().dateTime;
         long t1 = System.currentTimeMillis();
-        LOG.info("Made TimeSurface from SPT in {} msec.", (int) (t1 - t0));
+        LOG.debug("Made TimeSurface from SPT in {} msec.", (int) (t1 - t0));
         //makeSampleGrid(spt);
     }
 
