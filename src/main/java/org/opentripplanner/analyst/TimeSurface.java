@@ -80,7 +80,7 @@ public class TimeSurface implements Serializable {
         this.dateTime = spt.getOptions().dateTime;
         long t1 = System.currentTimeMillis();
         LOG.info("Made TimeSurface from SPT in {} msec.", (int) (t1 - t0));
-        makeSampleGrid(spt);
+        //makeSampleGrid(spt);
     }
 
     /** Make a max or min timesurface from propagated times in a ProfileRouter. */
