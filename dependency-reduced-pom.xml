@@ -4,7 +4,11 @@
   <groupId>org.opentripplanner</groupId>
   <artifactId>otp</artifactId>
   <name>OpenTripPlanner</name>
+<<<<<<< HEAD
   <version>1.0.0-SNAPSHOT</version>
+=======
+  <version>0.13.0-ao</version>
+>>>>>>> 038a8074888f5c88e3ecac9a58a223e5a22e0a96
   <url>http://opentripplanner.org/</url>
   <scm>
     <connection>scm:git:http://github.com/opentripplanner/OpenTripPlanner.git</connection>
@@ -86,6 +90,7 @@
         </configuration>
       </plugin>
       <plugin>
+<<<<<<< HEAD
         <artifactId>maven-source-plugin</artifactId>
         <executions>
           <execution>
@@ -97,6 +102,8 @@
         </executions>
       </plugin>
       <plugin>
+=======
+>>>>>>> 038a8074888f5c88e3ecac9a58a223e5a22e0a96
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.12</version>
         <configuration>
@@ -146,6 +153,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+<<<<<<< HEAD
               <filters>
                 <filter>
                   <artifact>*:*</artifact>
@@ -156,6 +164,8 @@
                   </excludes>
                 </filter>
               </filters>
+=======
+>>>>>>> 038a8074888f5c88e3ecac9a58a223e5a22e0a96
               <shadedArtifactAttached>false</shadedArtifactAttached>
               <transformers>
                 <transformer />
@@ -271,7 +281,10 @@
     </site>
   </distributionManagement>
   <properties>
+<<<<<<< HEAD
     <jackson.version>2.4.3</jackson.version>
+=======
+>>>>>>> 038a8074888f5c88e3ecac9a58a223e5a22e0a96
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <geotools.version>10.5</geotools.version>
   </properties>
