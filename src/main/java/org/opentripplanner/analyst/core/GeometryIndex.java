@@ -43,8 +43,8 @@ import com.vividsolutions.jts.index.strtree.STRtree;
 public class GeometryIndex implements GeometryIndexService {
     
     private static final Logger LOG = LoggerFactory.getLogger(GeometryIndex.class);
-    private static final double SEARCH_RADIUS_M = 100; // meters
-    private static final double SEARCH_RADIUS_DEG = SphericalDistanceLibrary.metersToDegrees(SEARCH_RADIUS_M);
+    //private static final double SEARCH_RADIUS_M = 100; // meters
+    //private static final double SEARCH_RADIUS_DEG = SphericalDistanceLibrary.metersToDegrees(SEARCH_RADIUS_M);
 
     GraphService graphService;
     

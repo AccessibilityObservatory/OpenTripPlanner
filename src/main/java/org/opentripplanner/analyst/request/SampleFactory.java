@@ -32,7 +32,7 @@ public class SampleFactory implements SampleSource {
 
     public SampleFactory(GeometryIndex index) {
         this.index = index;
-        this.setSearchRadiusM(200);
+        this.setSearchRadiusM(1000);
     }
 
     private GeometryIndex index;
