@@ -55,7 +55,7 @@ public class SampleFactory implements SampleSource {
         double xscale = Math.cos(c.y * Math.PI / 180);
         env.expandBy(searchRadiusLat / xscale, searchRadiusLat);
         @SuppressWarnings("unchecked")
-        List<Edge> edges = (List<Edge>) index.queryPedestrian(env);
+        List<Edge> edges = (List<Edge>) index.query(env);
         // look for edges and make a sample
         return findClosest(edges, c, xscale);
     }

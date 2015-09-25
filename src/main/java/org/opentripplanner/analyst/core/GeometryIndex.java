@@ -76,11 +76,12 @@ public class GeometryIndex implements GeometryIndexService {
     }
     
     public GeometryIndex(Graph graph) {
+        // If no permission is specified, default to pedestrian
         this(graph, StreetTraversalPermission.PEDESTRIAN);
     }
     
     @SuppressWarnings("rawtypes")
-    public List queryPedestrian(Envelope env) {
+    public List query(Envelope env) {
         return edgeIndex.query(env);
     }
     

@@ -23,7 +23,7 @@ import com.vividsolutions.jts.geom.Envelope;
 public interface GeometryIndexService {
 
     @SuppressWarnings("rawtypes")
-    List queryPedestrian(Envelope env);
+    List query(Envelope env);
 
     BoundingBox getBoundingBox(CoordinateReferenceSystem crs);
 }
