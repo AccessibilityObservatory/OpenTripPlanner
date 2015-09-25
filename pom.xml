@@ -460,7 +460,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.9.0</version>
+            <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
 
@@ -468,18 +468,18 @@
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-server</artifactId>
-            <version>2.13</version>
+            <version>2.17</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-multipart</artifactId>
-            <version>2.13</version>
+            <version>2.17</version>
         </dependency>
         <!-- Deploy Jersey apps in stand-alone Grizzly server instead of a servlet container. -->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-grizzly2-http</artifactId>
-            <version>2.13</version>
+            <version>2.17</version>
         </dependency>
 
         <!-- Jackson modules. -->
@@ -525,11 +525,6 @@
             <groupId>javax.annotation</groupId>
             <artifactId>jsr250-api</artifactId>
             <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>2.2.2</version>
         </dependency>
         <dependency>
             <groupId>javax.inject</groupId>
@@ -656,9 +651,9 @@
 
         <!-- Support for OTP scripting -->
         <dependency>
-	       <groupId>bsf</groupId>
-	       <artifactId>bsf</artifactId>
-	       <version>2.4.0</version>
+            <groupId>bsf</groupId>
+            <artifactId>bsf</artifactId>
+            <version>2.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
@@ -668,7 +663,7 @@
         <dependency>
             <groupId>org.python</groupId>
             <artifactId>jython</artifactId>
-            <version>2.5.3</version>
+            <version>2.7.0</version>
         </dependency>
 
     </dependencies>
