@@ -83,10 +83,11 @@ public class PointSet implements Serializable {
      * The geometries of the features. Each Attribute must contain an array of
      * magnitudes with the same length as this list.
      */
-    protected String[] ids;
-    protected double[] lats;
-    protected double[] lons;
-    protected Polygon[] polygons;
+    // Public so that they can be seen by SampleSet subclasses in OTPTomTom (ugh, sorry)
+    public String[] ids;
+    public double[] lats;
+    public double[] lons;
+    public Polygon[] polygons;
 
     /**
      * Rather than trying to load anything any everything, we stick to a strict
