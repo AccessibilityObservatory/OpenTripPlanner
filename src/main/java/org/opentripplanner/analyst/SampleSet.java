@@ -12,24 +12,24 @@ public class SampleSet {
     public final PointSet pset;
 
     /* Vertices at the two ends of a road, one per sample. */
-    Vertex[] v0s;
-    Vertex[] v1s;
+    protected Vertex[] v0s;
+    protected Vertex[] v1s;
 
-    /* Distances to the vertices at the two ends of a road, one per sample. */
-    float[] t0s;
-    float[] t1s;
+    /* Times to the vertices at the two ends of a road, one per sample. */
+    protected int[] t0s;
+    protected int[] t1s;
 
     public SampleSet (PointSet pset, SampleFactory sfac) {
         this.pset = pset;
         v0s = new Vertex[pset.capacity];
         v1s = new Vertex[pset.capacity];
-        t0s = new float[pset.capacity];
-        t1s = new float[pset.capacity];
+        t0s = new int[pset.capacity];
+        t1s = new int[pset.capacity];
         for (int i = 0; i < pset.capacity; i++) {
             Sample sample = sfac.getSample(pset.lons[i], pset.lats[i]);
             if (sample == null) {
-                t0s[i] = Float.NaN;
-                t1s[i] = Float.NaN;
+                t0s[i] = Integer.MAX_VALUE;
+                t1s[i] = Integer.MAX_VALUE;
                 continue;
             }
             v0s[i] = sample.v0;
