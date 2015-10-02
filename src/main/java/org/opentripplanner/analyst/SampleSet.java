@@ -1,6 +1,7 @@
 package org.opentripplanner.analyst;
 
 import org.opentripplanner.analyst.core.Sample;
+import org.opentripplanner.analyst.core.SampleSource;
 import org.opentripplanner.analyst.request.SampleFactory;
 import org.opentripplanner.routing.graph.Vertex;
 
@@ -19,7 +20,7 @@ public class SampleSet {
     protected int[] t0s;
     protected int[] t1s;
 
-    public SampleSet (PointSet pset, SampleFactory sfac) {
+    public SampleSet (PointSet pset, SampleSource sfac) {
         this.pset = pset;
         v0s = new Vertex[pset.capacity];
         v1s = new Vertex[pset.capacity];
