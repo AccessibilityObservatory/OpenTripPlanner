@@ -252,6 +252,7 @@ public class PointSet implements Serializable {
         	IDlist.add(id);
         }
         LOG.debug("Created PointSet from shapefile with IDs {}", IDlist);
+        it.close();
         store.dispose();
         return ret;
     }
