@@ -220,19 +220,26 @@ public class PointSet implements Serializable {
 	
 	                //attempt to coerce the prop's value into an integer
 	                int val;
-	                if(binding.equals(Integer.class)){
-	                    val = (Integer)prop.getValue();
-	                } else if(binding.equals(Long.class)){
-	                    val = ((Long)prop.getValue()).intValue();
-	                } else if(binding.equals(String.class)){
-	                    try{
-	                        val = Integer.parseInt((String)prop.getValue());
-	                    } catch (NumberFormatException ex ){
-	                        continue;
-	                    }
+	                Object value = prop.getValue();
+	                
+	                //interpret null values in shapefile as 0
+	                if (value == null) {
+	                    val = 0;
 	                } else {
-	                	LOG.debug("Property {} of feature {} could not be interpreted as int, skipping", prop.getName().toString(), ft.getId());
-	                    continue;
+        	                if(binding.equals(Integer.class)){
+        	                    val = (Integer)prop.getValue();
+        	                } else if(binding.equals(Long.class)){
+        	                    val = ((Long)prop.getValue()).intValue();
+        	                } else if(binding.equals(String.class)){
+        	                    try{
+        	                        val = Integer.parseInt((String)prop.getValue());
+        	                    } catch (NumberFormatException ex ){
+        	                        continue;
+        	                    }
+        	                } else {
+        	                	LOG.debug("Property {} of feature {} could not be interpreted as int, skipping", prop.getName().toString(), ft.getId());
+        	                    continue;
+        	                }
 	                }
 	
 	                ft.addAttribute(propName, val);
