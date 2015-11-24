@@ -54,6 +54,10 @@ public class PruneFloatingIslands implements GraphBuilderModule {
 
     private TransitToStreetNetworkModule transitToStreetNetwork;
     
+    public PruneFloatingIslands() {
+        this(40, 5);
+    }
+    
     public PruneFloatingIslands(int withoutStopsMaxSize, int withStopsMaxSize) {
         this.islandWithoutStopsMaxSize = withoutStopsMaxSize;
         this.islandWithStopsMaxSize = withStopsMaxSize;
