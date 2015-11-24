@@ -53,6 +53,11 @@ public class PruneFloatingIslands implements GraphBuilderModule {
     private String islandLogFile;
 
     private TransitToStreetNetworkModule transitToStreetNetwork;
+    
+    public PruneFloatingIslands(int withoutStopsMaxSize, int withStopsMaxSize) {
+        this.islandWithoutStopsMaxSize = withoutStopsMaxSize;
+        this.islandWithStopsMaxSize = withStopsMaxSize;
+    }
 
     public List<String> provides() {
         return Collections.emptyList();
