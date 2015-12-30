@@ -298,4 +298,20 @@ public class OSMWithTags {
         return isTag("amenity", "bicycle_parking") && !isTag("access", "private")
                 && !isTag("access", "no");
     }
+    
+    /**
+     * @return True if this OSM entity is inferred to be at surface level.
+     * 
+     * OSM entities are inferred to be at surface level if all of the following conditions are met:
+     *  - the "bridge" tag is not true
+     *  - the "tunnel" tag is not true
+     *  - the level tag is absent, or set to "0"
+     *  - the layer tag is absent, or set to "1"
+     */
+    public boolean isOnSurfaceLevel() {
+        return    !(isTagTrue("bridge"))
+               && !(isTagTrue("tunnel"))
+               && (!(hasTag("level")) || (getTag("level").equals("0")))
+               && (!(hasTag("layer")) || (getTag("layer").equals("0")));
+    }
 }

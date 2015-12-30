@@ -651,6 +651,9 @@ public class OpenStreetMapModule implements GraphBuilderModule {
                     StreetEdge backStreet = streets.second;
                     applyWayProperties(street, backStreet, wayData, way);
 
+                    street.onSurfaceLevel = way.isOnSurfaceLevel();
+                    backStreet.onSurfaceLevel = way.isOnSurfaceLevel();
+                    
                     applyEdgesToTurnRestrictions(way, startNode, endNode, street, backStreet);
                     startNode = endNode;
                     osmStartNode = osmdb.getNode(startNode);
