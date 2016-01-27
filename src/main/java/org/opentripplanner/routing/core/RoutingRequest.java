@@ -57,6 +57,9 @@ public class RoutingRequest implements Cloneable, Serializable {
 
     private static final Logger LOG = LoggerFactory.getLogger(RoutingRequest.class);
 
+    /** Whether the origin should connect only to edges on the surface*/
+    public boolean attachSurfaceOnly = false;
+    
     /**
      * The model that computes turn/traversal costs.
      * TODO: move this to the Router or the Graph if it doesn't clutter the code too much

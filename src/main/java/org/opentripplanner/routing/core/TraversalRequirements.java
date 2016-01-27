@@ -14,6 +14,11 @@ public class TraversalRequirements {
      * Modes allowed in graph traversal. Defaults to allowing all.
      */
     public TraverseModeSet modes = TraverseModeSet.allModes();
+    
+    /**
+     * Whether we are only interested in surface edges
+     */
+    private boolean surfaceOnly;
 
     /**
      * The maximum distance (meters) the user is willing to walk. Defaults to 1/2 mile.
@@ -79,6 +84,7 @@ public class TraversalRequirements {
         req.wheelchairAccessible = options.wheelchairAccessible;
         req.maxWheelchairSlope = options.maxSlope;
         req.maxWalkDistance = options.maxWalkDistance;
+        req.surfaceOnly = options.attachSurfaceOnly;
     }
 
     /**
@@ -100,6 +106,13 @@ public class TraversalRequirements {
                 return false;
             }
         }
+        
+        if (surfaceOnly) {
+            if (!e.onSurfaceLevel) {
+                return false;
+            }
+        }
+        
         return e.getPermission().allows(modes);        
     }
 
