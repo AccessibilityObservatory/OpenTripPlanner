@@ -50,6 +50,8 @@ public abstract class Edge implements Serializable {
     protected Vertex fromv;
 
     protected Vertex tov;
+    
+    public boolean onSurfaceLevel = true;
 
     protected Edge(Vertex v1, Vertex v2) {
         if (v1 == null || v2 == null) {
