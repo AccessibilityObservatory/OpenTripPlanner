@@ -16,5 +16,8 @@ package org.opentripplanner.analyst.core;
 public interface SampleSource {
 
     Sample getSample(double lon, double lat);
+    
+    // To support attaching origins and destinations only to link on the surface
+    Sample getSample(double lon, double lat, boolean surfaceOnly);
 
 }

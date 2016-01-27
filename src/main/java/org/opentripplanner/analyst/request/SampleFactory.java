@@ -48,6 +48,10 @@ public class SampleFactory implements SampleSource {
     @Override
     /** implements SampleSource interface */
     public Sample getSample(double lon, double lat) {
+        return getSample(lon, lat, false);
+    }
+    
+    public Sample getSample(double lon, double lat, boolean surfaceOnly) {
         Coordinate c = new Coordinate(lon, lat);
         // query always returns a (possibly empty) list, but never null
         Envelope env = new Envelope(c);
@@ -57,7 +61,7 @@ public class SampleFactory implements SampleSource {
         @SuppressWarnings("unchecked")
         List<Edge> edges = (List<Edge>) index.query(env);
         // look for edges and make a sample
-        return findClosest(edges, c, xscale);
+        return findClosest(edges, c, xscale, surfaceOnly);
     }
 
     /**
@@ -69,11 +73,24 @@ public class SampleFactory implements SampleSource {
      * then do the precise calculations.
      * 
      */
+    
     public Sample findClosest(List<Edge> edges, Coordinate pt, double xscale) {
+        return findClosest(edges, pt, xscale, false);
+    }
+    
+    public Sample findClosest(List<Edge> edges, Coordinate pt, double xscale, boolean surfaceOnly) {
         Candidate c = new Candidate();
         // track the best geometry
         Candidate best = new Candidate();
         for (Edge edge : edges) {
+            
+            // If we are attaching only to surface edges, skip non-surface edges
+            if (surfaceOnly) {
+                if (!edge.onSurfaceLevel) {
+                    continue;
+                }
+            }
+            
             /* LineString.getCoordinates() uses PackedCoordinateSequence.toCoordinateArray() which
              * necessarily builds new Coordinate objects.CoordinateSequence.getOrdinate() reads them 
              * directly. */
