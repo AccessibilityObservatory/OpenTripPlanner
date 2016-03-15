@@ -11,10 +11,6 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.umn.ao.otptomtom.network.timedomain.DayOfWeekTimeDomain;
-import edu.umn.ao.otptomtom.network.timedomain.TimeDomainComponents;
-import edu.umn.ao.otptomtom.network.timedomain.UnsupportedTimeDomainTypeException;
-
 /**
  * @author owenx148
  *

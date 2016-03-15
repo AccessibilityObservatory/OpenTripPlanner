@@ -6,18 +6,13 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.opentripplanner.common.TimeDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import edu.umn.ao.otptomtom.speedprofile.SpeedProfile;
 
 public class DayOfWeekTimeDomain extends TimeDomain {
     

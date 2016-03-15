@@ -18,13 +18,14 @@ import java.io.Serializable;
 import org.opentripplanner.common.RepeatingTimePeriod;
 import org.opentripplanner.routing.core.TraverseModeSet;
 import org.opentripplanner.routing.graph.Edge;
+import org.opentripplanner.time_domain.TimeDomain;
 
 public class TurnRestriction implements Serializable {
     private static final long serialVersionUID = 6072427988268244536L;
     public TurnRestrictionType type;
     public Edge from;
     public Edge to;
-    public RepeatingTimePeriod time;
+    public TimeDomain time;
     public TraverseModeSet modes;
 
     public String toString() {
@@ -58,7 +59,7 @@ public class TurnRestriction implements Serializable {
      */
     public boolean active(long time) {
         if (this.time != null)
-            return this.time.active(time);
+            return this.time.isActiveAtTime(time);
         return true;
     }
 }
