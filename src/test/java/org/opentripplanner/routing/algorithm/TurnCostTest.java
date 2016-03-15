@@ -19,8 +19,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.opentripplanner.common.TurnRestriction;
-import org.opentripplanner.common.TurnRestrictionType;
 import org.opentripplanner.common.geometry.GeometryUtils;
 import org.opentripplanner.routing.core.ConstantIntersectionTraversalCostModel;
 import org.opentripplanner.routing.core.State;
@@ -35,6 +33,8 @@ import org.opentripplanner.routing.spt.GraphPath;
 import org.opentripplanner.routing.spt.ShortestPathTree;
 import org.opentripplanner.routing.vertextype.IntersectionVertex;
 import org.opentripplanner.routing.vertextype.StreetVertex;
+import org.opentripplanner.turn_restriction.TurnRestriction;
+import org.opentripplanner.turn_restriction.TurnRestrictionType;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.LineString;

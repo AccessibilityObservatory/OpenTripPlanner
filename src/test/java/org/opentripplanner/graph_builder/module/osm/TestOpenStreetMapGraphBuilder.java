@@ -23,7 +23,6 @@ import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.opentripplanner.common.TurnRestriction;
 import org.opentripplanner.common.model.P2;
 import org.opentripplanner.openstreetmap.model.OSMWay;
 import org.opentripplanner.openstreetmap.model.OSMWithTags;
@@ -35,6 +34,7 @@ import org.opentripplanner.routing.graph.Edge;
 import org.opentripplanner.routing.graph.Graph;
 import org.opentripplanner.routing.graph.Vertex;
 import org.opentripplanner.routing.vertextype.IntersectionVertex;
+import org.opentripplanner.turn_restriction.TurnRestriction;
 
 public class TestOpenStreetMapGraphBuilder extends TestCase {
 

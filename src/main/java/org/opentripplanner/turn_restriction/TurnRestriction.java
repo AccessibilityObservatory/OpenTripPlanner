@@ -11,10 +11,11 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-package org.opentripplanner.common;
+package org.opentripplanner.turn_restriction;
 
 import java.io.Serializable;
 
+import org.opentripplanner.common.RepeatingTimePeriod;
 import org.opentripplanner.routing.core.TraverseModeSet;
 import org.opentripplanner.routing.graph.Edge;
 
