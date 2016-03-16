@@ -75,6 +75,7 @@ import org.opentripplanner.routing.vertextype.ExitVertex;
 import org.opentripplanner.routing.vertextype.IntersectionVertex;
 import org.opentripplanner.routing.vertextype.ParkAndRideVertex;
 import org.opentripplanner.routing.vertextype.TransitStopStreetVertex;
+import org.opentripplanner.time_domain.TimeDomain;
 import org.opentripplanner.turn_restriction.TurnRestriction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -837,7 +838,11 @@ public class OpenStreetMapModule implements GraphBuilderModule {
                             restriction.to = to;
                             restriction.type = restrictionTag.type;
                             restriction.modes = restrictionTag.modes;
-                            restriction.time = restrictionTag.time;
+                            if (restrictionTag.time != null) {
+                            	restriction.timeDomains = new ArrayList<TimeDomain>(2);
+                            	restriction.timeDomains.add(restrictionTag.time);
+                            }
+                            
                             graph.addTurnRestriction(from, restriction);
                         }
                     }

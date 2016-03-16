@@ -14,10 +14,10 @@
 package org.opentripplanner.turn_restriction;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.opentripplanner.routing.core.TraverseModeSet;
 import org.opentripplanner.routing.graph.Edge;
-import org.opentripplanner.time_domain.RepeatingTimePeriod;
 import org.opentripplanner.time_domain.TimeDomain;
 
 public class TurnRestriction implements Serializable {
@@ -25,7 +25,7 @@ public class TurnRestriction implements Serializable {
     public TurnRestrictionType type;
     public Edge from;
     public Edge to;
-    public TimeDomain time;
+    public List<TimeDomain> timeDomains;
     public TraverseModeSet modes;
 
     public String toString() {
@@ -33,7 +33,7 @@ public class TurnRestriction implements Serializable {
     }
     
     public TurnRestriction () {
-        time = null;
+        timeDomains = null;
     }
     
     /**
@@ -58,8 +58,12 @@ public class TurnRestriction implements Serializable {
      * @return
      */
     public boolean active(long time) {
-        if (this.time != null)
-            return this.time.isActiveAtTime(time);
-        return true;
+    	boolean ret = true;
+        if (this.timeDomains != null) {
+        	for (TimeDomain td : this.timeDomains) {
+        		ret &= td.isActiveAtTime(time);
+        	}
+        }
+        return ret;
     }
 }
