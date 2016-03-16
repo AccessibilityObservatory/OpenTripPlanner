@@ -11,7 +11,7 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-package org.opentripplanner.common;
+package org.opentripplanner.time_domain;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -26,7 +26,7 @@ import java.util.TimeZone;
  * @author mattwigway
  *
  */
-public class RepeatingTimePeriod implements Serializable {
+public class RepeatingTimePeriod extends TimeDomain {
     private static final long serialVersionUID = -5977328371879835782L;
     
     private RepeatingTimePeriod () {
@@ -186,4 +186,9 @@ public class RepeatingTimePeriod implements Serializable {
         
         return false;   
     }
+
+	@Override
+	public boolean isActiveAtTime(long t) {
+		return active(t);
+	}
 }

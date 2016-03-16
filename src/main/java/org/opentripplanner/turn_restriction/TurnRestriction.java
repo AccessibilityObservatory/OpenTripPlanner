@@ -15,9 +15,9 @@ package org.opentripplanner.turn_restriction;
 
 import java.io.Serializable;
 
-import org.opentripplanner.common.RepeatingTimePeriod;
 import org.opentripplanner.routing.core.TraverseModeSet;
 import org.opentripplanner.routing.graph.Edge;
+import org.opentripplanner.time_domain.RepeatingTimePeriod;
 import org.opentripplanner.time_domain.TimeDomain;
 
 public class TurnRestriction implements Serializable {
