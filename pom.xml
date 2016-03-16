@@ -347,7 +347,7 @@
         </repository>
     </repositories>
 
-    <!-- Enunciate 1.29 is not yet in Maven Central Repository -->
+    <!-- Enunciate 1.29 is not yet in Maven Central Repository 
 
     <pluginRepositories>
         <pluginRepository>
@@ -355,6 +355,7 @@
             <url>http://repository.opencastproject.org/nexus/content/repositories/public/</url>
         </pluginRepository>
     </pluginRepositories>
+    -->
 
     <dependencies>
         <!-- MapDB, for GTFS and OSM loading experiments. -->
