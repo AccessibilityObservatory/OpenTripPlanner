@@ -27,7 +27,7 @@ public abstract class TimeDomain implements Serializable{
 
     public abstract boolean isActiveAtTime(long t);
     
-    static TimeDomain parseTimeDomainString(String td) {        
+    public static TimeDomain parseTimeDomainString(String td) {        
         try {
             TimeDomainComponents components = splitComponents(td);
         } catch (UnsupportedTimeDomainTypeException e) {
