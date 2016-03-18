@@ -32,10 +32,10 @@ public abstract class TimeDomain implements Serializable{
             TimeDomainComponents components = splitComponents(td);
             return (TimeDomain) DayOfWeekTimeDomain.fromComponents(components);
         } catch (UnsupportedTimeDomainTypeException e) {
-            LOG.warn(e.getMessage());
+            //LOG.warn(e.getMessage());
             return null;
         } catch (TimeDomainParseErrorException e) {
-            LOG.warn(e.getMessage());
+            //LOG.warn(e.getMessage());
             return null;
         }       
        
