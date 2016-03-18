@@ -46,7 +46,7 @@ public abstract class TimeDomain implements Serializable{
         td = td.substring(1, td.length() - 1); // remove square braces
         
         String first, second;
-        Pattern p = Pattern.compile("\\(([thm[0-9]]+)\\)\\{([thm[0-9]]+)\\}");
+        Pattern p = Pattern.compile("\\(([thm[0-9]]+)\\)\\{([thmd[0-9]]+)\\}");
         Matcher m = p.matcher(td);
         if (!m.find()) {
             throw new UnsupportedTimeDomainTypeException("Only day-of-week time domains are currently supported (" + td + ")");
