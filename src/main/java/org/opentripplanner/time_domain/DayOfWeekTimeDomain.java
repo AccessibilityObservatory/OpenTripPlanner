@@ -131,7 +131,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
             match = match.substring(1, match.length()); // strip leading character to leave only digits
             startHour = Integer.parseInt(match);
         }
-        if (matches != 1) {
+        if (matches > 1) {
             throw new TimeDomainParseErrorException("Multiple or missing hour components in time domain: " + c.toString());
         }
         
@@ -144,7 +144,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
             match = match.substring(1, match.length()); // strip leading character to leave only digits
             startMinute = Integer.parseInt(match);
         }
-        if (matches != 1) {
+        if (matches > 1) {
             throw new TimeDomainParseErrorException("Multiple or missing minute components in time domain: " + c.toString());
         }
         
@@ -159,7 +159,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
             match = match.substring(1, match.length()); // strip leading character to leave only digits
             durationHour = Integer.parseInt(match);
         }
-        if (matches != 1) {
+        if (matches > 1) {
             throw new TimeDomainParseErrorException("Multiple or missing hour components in time domain: " + c.toString());
         }
         
@@ -172,7 +172,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
             match = match.substring(1, match.length()); // strip leading character to leave only digits
             durationMinute = Integer.parseInt(match);
         }
-        if (matches != 1) {
+        if (matches > 1) {
             throw new TimeDomainParseErrorException("Multiple or missing minute components in time domain: " + c.toString());
         }
         
