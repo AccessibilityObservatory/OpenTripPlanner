@@ -93,8 +93,8 @@ public class DayOfWeekTimeDomain extends TimeDomain {
     }
 
     public static DayOfWeekTimeDomain fromComponents(TimeDomainComponents c, int zoneOffsetMinutes) throws TimeDomainParseErrorException {
-        String startString = "t2t3t4t5t6h11m30";
-        String durationString = "h2m30";
+        String startString = c.startString;
+        String durationString = c.durationString;
         
         Pattern pDOW = Pattern.compile("t\\d");
         Pattern pH = Pattern.compile("h\\d{1,2}+");
@@ -155,7 +155,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
         matches = 0;
         while (mH.find()) {
             matches++;
-            match = startString.substring(mH.start(), mH.end());
+            match = durationString.substring(mH.start(), mH.end());
             match = match.substring(1, match.length()); // strip leading character to leave only digits
             durationHour = Integer.parseInt(match);
         }
@@ -168,7 +168,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
         matches = 0;
         while (mM.find()) {
             matches++;
-            match = startString.substring(mM.start(), mM.end());
+            match = durationString.substring(mM.start(), mM.end());
             match = match.substring(1, match.length()); // strip leading character to leave only digits
             durationMinute = Integer.parseInt(match);
         }
