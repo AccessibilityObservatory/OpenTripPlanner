@@ -99,6 +99,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
         Pattern pDOW = Pattern.compile("t\\d");
         Pattern pH = Pattern.compile("h\\d{1,2}+");
         Pattern pM = Pattern.compile("m\\d{1,2}+");
+        Pattern pD = Pattern.compile("d\\d{1,2}+");
         
         Set<DayOfWeek> daysOfWeek = new HashSet<DayOfWeek>();
         String match;
@@ -109,6 +110,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
         int startMinute = 0;
         int durationHour = 0;
         int durationMinute = 0;
+        int durationDay = 0;
         
         // Parse start component
         //      Parse days of week
@@ -132,7 +134,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
             startHour = Integer.parseInt(match);
         }
         if (matches > 1) {
-            throw new TimeDomainParseErrorException("Multiple or missing hour components in time domain: " + c.toString());
+            throw new TimeDomainParseErrorException("Multiple hour components in time domain: " + c.toString());
         }
         
         //      Parse minutes
@@ -145,7 +147,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
             startMinute = Integer.parseInt(match);
         }
         if (matches > 1) {
-            throw new TimeDomainParseErrorException("Multiple or missing minute components in time domain: " + c.toString());
+            throw new TimeDomainParseErrorException("Multiple minute components in time domain: " + c.toString());
         }
         
         
@@ -160,7 +162,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
             durationHour = Integer.parseInt(match);
         }
         if (matches > 1) {
-            throw new TimeDomainParseErrorException("Multiple or missing hour components in time domain: " + c.toString());
+            throw new TimeDomainParseErrorException("Multiple hour components in time domain: " + c.toString());
         }
         
         //      Parse minutes
@@ -173,11 +175,34 @@ public class DayOfWeekTimeDomain extends TimeDomain {
             durationMinute = Integer.parseInt(match);
         }
         if (matches > 1) {
-            throw new TimeDomainParseErrorException("Multiple or missing minute components in time domain: " + c.toString());
+            throw new TimeDomainParseErrorException("Multiple minute components in time domain: " + c.toString());
         }
         
-        return new DayOfWeekTimeDomain(daysOfWeek, startHour, startMinute, durationHour, durationMinute, zoneOffsetMinutes);
+        //      Parse minutes
+        Matcher mD = pD.matcher(durationString);
+        matches = 0;
+        while (mD.find()) {
+            matches++;
+            match = durationString.substring(mD.start(), mD.end());
+            match = match.substring(1, match.length()); // strip leading character to leave only digits
+            durationDay = Integer.parseInt(match);
+        }
+        if (matches > 1) {
+            throw new TimeDomainParseErrorException("Multiple day components in time domain: " + c.toString());
+        }
         
+        DayOfWeekTimeDomain ret;
+        // Check duration
+        // (start hour/min of 0 is OK because that means midnight)
+        if ((durationMinute > 0 || durationHour > 0) && durationDay == 0) {
+            ret = new DayOfWeekTimeDomain(daysOfWeek, startHour, startMinute, durationHour, durationMinute, zoneOffsetMinutes);
+        } else if (durationMinute == 0 && durationHour == 0 && durationDay == 1 && startHour == 0 && startMinute == 0) {
+            ret = new DayOfWeekTimeDomain(daysOfWeek, startHour, startMinute, 24, 0, zoneOffsetMinutes);
+        } else {
+            throw new TimeDomainParseErrorException("Unsupported time domain: " + c.toString());
+        }
+        
+        return ret;
     }
 
 }
