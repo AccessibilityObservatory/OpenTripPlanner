@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("serial")
 public class DayOfWeekTimeDomain extends TimeDomain {
     
     private static final Logger LOG = LoggerFactory.getLogger(DayOfWeekTimeDomain.class);
@@ -23,8 +24,28 @@ public class DayOfWeekTimeDomain extends TimeDomain {
     private Duration duration; // milliseconds
     private ZoneOffset zoneOffset;
 
+    private int startHour;
+    private int startMinute;
+    private int durationHour;
+    private int durationMinute;
+    
+    public DayOfWeekTimeDomain(Set<DayOfWeek> activeDays, int startHour, int startMinute, int durationHour, int durationMinute) {
+        this(activeDays, startHour, startMinute, durationHour, durationMinute, 0);
+    }
+    
     public DayOfWeekTimeDomain(Set<DayOfWeek> activeDays, int startHour, int startMinute, int durationHour, int durationMinute, int zoneOffsetMinutes) {
         this.activeDays = activeDays;
+        this.zoneOffset = ZoneOffset.ofTotalSeconds(zoneOffsetMinutes * 60);
+        this.startTime = OffsetTime.of(startHour, startMinute, 0, 0, this.zoneOffset);
+        this.duration = Duration.ofHours(durationHour).plusMinutes(durationMinute);
+        
+        this.startHour = startHour;
+        this.startMinute = startMinute;
+        this.durationMinute = durationMinute;
+        this.durationHour = durationHour;
+    }
+    
+    public void SetZoneOffsetMinutes(int zoneOffsetMinutes) {
         this.zoneOffset = ZoneOffset.ofTotalSeconds(zoneOffsetMinutes * 60);
         this.startTime = OffsetTime.of(startHour, startMinute, 0, 0, this.zoneOffset);
         this.duration = Duration.ofHours(durationHour).plusMinutes(durationMinute);
@@ -65,6 +86,10 @@ public class DayOfWeekTimeDomain extends TimeDomain {
     
     public Set<DayOfWeek> getActiveDays() {
         return this.activeDays;
+    }
+    
+    public static DayOfWeekTimeDomain fromComponents(TimeDomainComponents c) throws TimeDomainParseErrorException {
+        return fromComponents(c, 0);
     }
 
     public static DayOfWeekTimeDomain fromComponents(TimeDomainComponents c, int zoneOffsetMinutes) throws TimeDomainParseErrorException {

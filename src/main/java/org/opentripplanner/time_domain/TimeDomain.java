@@ -30,12 +30,15 @@ public abstract class TimeDomain implements Serializable{
     public static TimeDomain parseTimeDomainString(String td) {        
         try {
             TimeDomainComponents components = splitComponents(td);
+            return (TimeDomain) DayOfWeekTimeDomain.fromComponents(components);
         } catch (UnsupportedTimeDomainTypeException e) {
             LOG.warn(e.getMessage());
             return null;
-        }
-        
-       return null;
+        } catch (TimeDomainParseErrorException e) {
+            LOG.warn(e.getMessage());
+            return null;
+        }       
+       
     }
     
     protected static TimeDomainComponents splitComponents(String td) throws UnsupportedTimeDomainTypeException {
