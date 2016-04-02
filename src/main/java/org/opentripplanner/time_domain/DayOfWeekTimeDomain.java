@@ -45,7 +45,7 @@ public class DayOfWeekTimeDomain extends TimeDomain {
         this.durationHour = durationHour;
     }
     
-    public void SetZoneOffsetMinutes(int zoneOffsetMinutes) {
+    public void setZoneOffsetMinutes(int zoneOffsetMinutes) {
         this.zoneOffset = ZoneOffset.ofTotalSeconds(zoneOffsetMinutes * 60);
         this.startTime = OffsetTime.of(startHour, startMinute, 0, 0, this.zoneOffset);
         this.duration = Duration.ofHours(durationHour).plusMinutes(durationMinute);
