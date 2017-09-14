@@ -13,6 +13,8 @@
 
 package org.opentripplanner.routing.edgetype;
 
+import java.util.List;
+
 import org.onebusaway.gtfs.model.Trip;
 import org.opentripplanner.common.geometry.GeometryUtils;
 import org.opentripplanner.routing.core.State;
@@ -23,6 +25,7 @@ import org.opentripplanner.routing.graph.Edge;
 import org.opentripplanner.routing.graph.Vertex;
 import org.opentripplanner.routing.vertextype.StreetVertex;
 import org.opentripplanner.routing.vertextype.TransitStop;
+import org.opentripplanner.routing.vertextype.TransitVertex;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.LineString;
@@ -74,6 +77,7 @@ public class StreetTransitLink extends Edge {
         return "street transit link";
     }
 
+    @SuppressWarnings("unchecked")
     public State traverse(State s0) {
         RoutingRequest req = s0.getOptions();
         if (s0.getOptions().wheelchairAccessible && !wheelchairAccessible) {
@@ -87,6 +91,17 @@ public class StreetTransitLink extends Edge {
             // Forbid taking a rented bike on any transit.
             // TODO Check this condition, does this always make sense?
             return null;
+        }
+        if (req.containsExtension("TrappedStops")) {
+            // Forbid leaving a TransitVertex to the street if it is listed as a trapped stop
+            Vertex v0 = s0.getVertex();
+            if (v0 instanceof TransitVertex) {
+                List<String> trappedStops = (List<String>) req.getExtension("TrappedStops");
+                if (trappedStops.contains(((TransitVertex) v0).getStopId().toString())) {
+                    return null;
+                }
+            }
+            
         }
 
         // Do not check here whether any transit modes are selected. A check for the presence of
