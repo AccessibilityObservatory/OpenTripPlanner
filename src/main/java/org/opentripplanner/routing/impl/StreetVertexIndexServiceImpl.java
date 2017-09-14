@@ -277,9 +277,32 @@ public class StreetVertexIndexServiceImpl implements StreetVertexIndexService {
     private Vertex getClosestVertex(final GenericLocation location, RoutingRequest options,
             List<Edge> extraEdges, boolean endVertex) {
         LOG.debug("Looking for/making a vertex near {}", location);
-
-        // first, check for intersections very close by
+        
         Coordinate coord = location.getCoordinate();
+        
+        // First, look for stops very close by
+        double closestStopDistance = Double.POSITIVE_INFINITY;
+        Vertex closestStop = null;
+        // elsewhere options=null means no restrictions, find anything.
+        // here we skip examining stops, as they are really only relevant when transit is being used
+        if (options != null && options.modes.isTransit()) {
+            for (TransitStop v : getNearbyTransitStops(coord, 5)) {
+                if (!v.isStreetLinkable()) continue;
+
+                double d = SphericalDistanceLibrary.distance(v.getCoordinate(), coord);
+                if (d < closestStopDistance) {
+                    closestStopDistance = d;
+                    closestStop = v;
+                }
+            }
+            if (closestStop != null) {
+                LOG.info("Attaching origin {} to transit stop {}", options.from.getCoordinate().toString(), ((TransitStop) closestStop).getStopId().toString());
+                return closestStop;
+            }
+        }
+        LOG.debug(" best stop: {} distance: {}", closestStop, closestStopDistance);
+
+        // Next, check for intersections very close by
         StreetVertex intersection = getIntersectionAt(coord);
         String calculatedName = location.name;
         if (intersection != null) {
@@ -340,8 +363,8 @@ public class StreetVertexIndexServiceImpl implements StreetVertexIndexService {
 
         // if no intersection vertices were found, then find the closest transit stop
         // (we can return stops here because this method is not used when street-transit linking)
-        double closestStopDistance = Double.POSITIVE_INFINITY;
-        Vertex closestStop = null;
+        closestStopDistance = Double.POSITIVE_INFINITY;
+        closestStop = null;
         // elsewhere options=null means no restrictions, find anything.
         // here we skip examining stops, as they are really only relevant when transit is being used
         if (options != null && options.modes.isTransit()) {
