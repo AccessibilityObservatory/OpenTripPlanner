@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.onebusaway.gtfs.model.Trip;
 import org.opentripplanner.common.geometry.GeometryUtils;
+import org.opentripplanner.graph_builder.module.osm.OSMDatabase;
 import org.opentripplanner.routing.core.State;
 import org.opentripplanner.routing.core.StateEditor;
 import org.opentripplanner.routing.core.TraverseMode;
@@ -26,6 +27,8 @@ import org.opentripplanner.routing.graph.Vertex;
 import org.opentripplanner.routing.vertextype.StreetVertex;
 import org.opentripplanner.routing.vertextype.TransitStop;
 import org.opentripplanner.routing.vertextype.TransitVertex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.LineString;
@@ -36,6 +39,8 @@ import com.vividsolutions.jts.geom.LineString;
  * curbside bus stop.
  */
 public class StreetTransitLink extends Edge {
+    
+    private static Logger LOG = LoggerFactory.getLogger(StreetTransitLink.class);
 
     private static final long serialVersionUID = -3311099256178798981L;
     static final int STL_TRAVERSE_COST = 1;
@@ -97,7 +102,9 @@ public class StreetTransitLink extends Edge {
             Vertex v0 = s0.getVertex();
             if (v0 instanceof TransitVertex) {
                 List<String> trappedStops = (List<String>) req.getExtension("TrappedStops");
-                if (trappedStops.contains(((TransitVertex) v0).getStopId().toString())) {
+                String stopID = ((TransitVertex) v0).getStopId().toString();
+                if (trappedStops.contains(stopID)) {
+                    LOG.info("Blocked traversal of street link from trapped stop {}", stopID);
                     return null;
                 }
             }
