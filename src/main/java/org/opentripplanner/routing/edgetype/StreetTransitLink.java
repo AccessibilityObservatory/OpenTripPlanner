@@ -103,6 +103,7 @@ public class StreetTransitLink extends Edge {
             if (v0 instanceof TransitVertex) {
                 List<String> trappedStops = (List<String>) req.getExtension("TrappedStops");
                 String stopID = ((TransitVertex) v0).getStopId().toString();
+                LOG.info("Checking stop {} for trap", stopID);
                 if (trappedStops.contains(stopID)) {
                     LOG.info("Blocked traversal of street link from trapped stop {}", stopID);
                     return null;
