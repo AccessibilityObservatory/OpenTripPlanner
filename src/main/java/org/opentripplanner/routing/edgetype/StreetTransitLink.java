@@ -98,6 +98,7 @@ public class StreetTransitLink extends Edge {
             return null;
         }
         if (req.containsExtension("TrappedStops")) {
+            LOG.info("Request includes trapped stops data");
             // Forbid leaving a TransitVertex to the street if it is listed as a trapped stop
             Vertex v0 = s0.getVertex();
             if (v0 instanceof TransitVertex) {
