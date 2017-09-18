@@ -13,7 +13,7 @@
 
 package org.opentripplanner.routing.edgetype;
 
-import java.util.List;
+import java.util.HashSet;
 
 import org.onebusaway.gtfs.model.Trip;
 import org.opentripplanner.common.geometry.GeometryUtils;
@@ -102,7 +102,7 @@ public class StreetTransitLink extends Edge {
             // Forbid leaving a TransitVertex to the street if it is listed as a trapped stop
             Vertex v0 = s0.getVertex();
             if (v0 instanceof TransitVertex) {
-                List<String> trappedStops = (List<String>) req.getExtension("TrappedStops");
+                HashSet<String> trappedStops = (HashSet<String>) req.getExtension("TrappedStops");
                 String stopID = ((TransitVertex) v0).getStopId().toString();
                 LOG.info("Checking stop {} for trap", stopID);
                 if (trappedStops.contains(stopID)) {
