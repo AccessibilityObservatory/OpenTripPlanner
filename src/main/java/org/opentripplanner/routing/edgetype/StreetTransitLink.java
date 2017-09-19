@@ -98,15 +98,13 @@ public class StreetTransitLink extends Edge {
             return null;
         }
         if (req.containsExtension("TrappedStops")) {
-            LOG.info("Request includes trapped stops data");
             // Forbid leaving a TransitVertex to the street if it is listed as a trapped stop
             Vertex v0 = s0.getVertex();
             if (v0 instanceof TransitVertex) {
                 HashSet<String> trappedStops = (HashSet<String>) req.getExtension("TrappedStops");
                 String stopID = ((TransitVertex) v0).getStopId().toString();
-                LOG.info("Checking stop {} for trap", stopID);
                 if (trappedStops.contains(stopID)) {
-                    LOG.info("Blocked traversal of street link from trapped stop {}", stopID);
+                    LOG.info("Blocked traversal of street link {} from trapped stop {}", this.toString(), stopID);
                     return null;
                 }
             }
