@@ -28,6 +28,8 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
 
 public interface StreetVertexIndexService {
+	
+	public void setSearchDistance(double distance);
 
     /**
      * Returns the vertices intersecting with the specified envelope.

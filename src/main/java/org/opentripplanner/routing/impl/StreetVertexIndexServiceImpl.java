@@ -78,7 +78,7 @@ public class StreetVertexIndexServiceImpl implements StreetVertexIndexService {
     /* all distance constants here are plate-carée Euclidean, 0.001 ~= 100m at equator */
 
     // Edges will only be found if they are closer than this distance
-    public static final double MAX_DISTANCE_FROM_STREET = 0.10000;
+    public double MAX_DISTANCE_FROM_STREET = 0.10000;
 
     // Maximum difference in distance for two geometries to be considered coincident
     public static final double DISTANCE_ERROR = 0.000001;
@@ -591,5 +591,9 @@ public class StreetVertexIndexServiceImpl implements StreetVertexIndexService {
     public Coordinate getClosestPointOnStreet(Coordinate c) {
         CandidateEdge e = getClosestEdges(new GenericLocation(c), new TraversalRequirements()).best;
         return e != null ? e.nearestPointOnEdge : null;
+    }
+    
+    public void setSearchDistance(double distance) {
+    		this.MAX_DISTANCE_FROM_STREET = distance;
     }
 }

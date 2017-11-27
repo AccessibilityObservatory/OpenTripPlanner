@@ -972,5 +972,8 @@ public class Graph implements Serializable {
     	return this.sampleFactory;	
     }
     
+    public void setStreetSearchDistance(double distance) {
+    		this.streetIndex.setSearchDistance(distance);
+    }
    
 }
