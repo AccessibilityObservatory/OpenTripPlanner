@@ -55,6 +55,7 @@ import org.opentripplanner.analyst.request.SampleFactory;
 import org.opentripplanner.api.resource.GraphMetadata;
 import org.opentripplanner.common.MavenVersion;
 import org.opentripplanner.common.geometry.GraphUtils;
+import org.opentripplanner.common.geometry.SphericalDistanceLibrary;
 import org.opentripplanner.graph_builder.annotation.GraphBuilderAnnotation;
 import org.opentripplanner.graph_builder.annotation.NoFutureDates;
 import org.opentripplanner.model.GraphBundle;
@@ -972,8 +973,15 @@ public class Graph implements Serializable {
     	return this.sampleFactory;	
     }
     
-    public void setStreetSearchDistance(double distance) {
-    		this.streetIndex.setSearchDistance(distance);
+    public void setStreetSearchDistanceM(int distanceM) {
+    		double distanceDeg = SphericalDistanceLibrary.metersToDegrees(distanceM);
+    		LOG.info("Setting origin search distance to {} meters ({} degrees)", distanceM, distanceDeg);
+    		this.streetIndex.setSearchDistance(distanceDeg);
+    		
+    		LOG.info("Setting destination search distance to {} meters", distanceM);
+    		SampleFactory sf = getSampleFactory();
+    		sf.setSearchRadiusM(distanceM);
+    		
     }
    
 }
