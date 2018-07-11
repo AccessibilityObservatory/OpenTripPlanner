@@ -158,16 +158,36 @@ public class ShortestPathTree {
      * @return a 'best' state at that vertex
      */
     public State getState(Vertex dest) {
+    		if (dest != null) {
+    			LOG.info("Requested state for vertex {}", dest.toString());
+    		} else {
+    			LOG.info("Requested state for null vertex");
+    		}
         Collection<State> states = stateSets.get(dest);
-        if (states == null)
-            return null;
+        if (states == null) {
+            LOG.warn("No state for this vertex");
+        		return null;
+        } else {
+        		LOG.info("Found {} state(s) for vertex {}", states.size(), dest.toString());
+        }
         State ret = null;
         // TODO are we only checking path parser acceptance when we fetch states via this specific method?
         for (State s : states) {
+        		LOG.info("Checking state {}", s);
             if ((ret == null || s.weight < ret.weight) && s.isFinal() && s.allPathParsersAccept()) {
                 ret = s;
+                LOG.info("State {} is acceptable", s);
+            } else {
+            		LOG.info("State {} is not acceptable", s);
             }
         }
+        
+        if (ret == null) {
+        		LOG.warn("Returning null state for this vertex", dest.toString());
+        } else {
+        		LOG.info("Returning state {} for vertex {}", ret.toString(), dest.toString());
+        }
+        
         return ret;
     }
 
