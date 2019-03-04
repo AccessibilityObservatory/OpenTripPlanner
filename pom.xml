@@ -6,7 +6,7 @@
     <url>http://opentripplanner.org/</url>
     <groupId>org.opentripplanner</groupId>
     <artifactId>otp-ao</artifactId>
-    <version>0.18.3-pathdebug</version>
+    <version>0.18.2-pathdebug</version>
     <packaging>jar</packaging>
 
     <scm>
