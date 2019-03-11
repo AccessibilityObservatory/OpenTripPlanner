@@ -300,6 +300,24 @@ public class OSMWithTags {
     }
     
     /**
+     * @return LTS score for this node/way, as byte. Returns valid values 0-4, or -1 for any other tag value to indicate an error.
+     */
+    public byte getLTSscore() {
+    	String LTSstring = getTag("LTSrank");
+    	
+    	if (LTSstring == null) {
+    		return 0;
+    	}
+    	
+    	byte LTSbyte = Byte.parseByte(LTSstring);
+    	if (LTSbyte >= 0 && LTSbyte <= 4) {
+    		return LTSbyte;
+    	} else {
+    		return -1;
+    	}
+    }
+    
+    /**
      * @return True if this OSM entity is inferred to be at surface level.
      * 
      * OSM entities are inferred to be at surface level if all of the following conditions are met:

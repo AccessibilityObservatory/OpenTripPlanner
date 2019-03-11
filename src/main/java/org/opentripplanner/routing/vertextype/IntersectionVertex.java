@@ -31,6 +31,9 @@ public class IntersectionVertex extends StreetVertex {
      * Is this a free-flowing intersection, i.e. should it have no delay at all? e.g., freeway ramps, &c.
      */
     public boolean freeFlowing;
+    
+    /** The LTS level of this edge, 1-4. 0 indicates undefined. */
+    public byte LTSscore = 0;
 
     /** Returns true if this.freeFlowing or if it appears that this vertex is free-flowing */
     public boolean inferredFreeFlowing() {

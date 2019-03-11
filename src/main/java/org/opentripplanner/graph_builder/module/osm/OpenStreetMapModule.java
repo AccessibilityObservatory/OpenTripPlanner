@@ -672,6 +672,8 @@ public class OpenStreetMapModule implements GraphBuilderModule {
 
             Set<T2<Alert, NoteMatcher>> notes = wayPropertySet.getNoteForWay(way);
             boolean noThruTraffic = way.isThroughTrafficExplicitlyDisallowed();
+            
+            
 
             if (street != null) {
                 double safety = wayData.getSafetyFeatures().first;
@@ -684,6 +686,19 @@ public class OpenStreetMapModule implements GraphBuilderModule {
                         graph.streetNotesService.addStaticNote(street, note.first, note.second);
                 }
                 street.setNoThruTraffic(noThruTraffic);
+                
+                // Set LTS level from OSM tags
+                byte LTSscore = way.getLTSscore();
+                if (LTSscore == -1) {
+                	LOG.warn("Got invalid LTS score for way {}, setting to 0 (undefined)", street.toString());
+                	LTSscore = 0;
+                }
+                street.LTSscore = LTSscore;
+                
+                if (LTSscore == 0 && street.getPermission().allows(TraverseMode.BICYCLE)) {
+                	LOG.warn("Undefined LTS score for bikeable way {}", way.getId());
+                }
+                
             }
 
             if (backStreet != null) {
@@ -697,6 +712,18 @@ public class OpenStreetMapModule implements GraphBuilderModule {
                         graph.streetNotesService.addStaticNote(backStreet, note.first, note.second);
                 }
                 backStreet.setNoThruTraffic(noThruTraffic);
+                
+                // Set LTS level from OSM tags
+                byte LTSscore = way.getLTSscore();
+                if (LTSscore == -1) {
+                	LOG.warn("Got invalid LTS score for way {}, setting to 0 (undefined)", backStreet.toString());
+                	LTSscore = 0;
+                }
+                backStreet.LTSscore = LTSscore;
+
+                if (LTSscore == 0 && street.getPermission().allows(TraverseMode.BICYCLE)) {
+                	LOG.warn("Undefined LTS score for bikeable way {}", way.getId());
+                }
             }
         }
 
@@ -1184,7 +1211,18 @@ public class OpenStreetMapModule implements GraphBuilderModule {
                         iv.trafficLight = (true);
                     }
                 }
-
+                
+                // Set LTS score for this vertex
+                if (iv != null) {
+                	byte LTSscore = node.getLTSscore();
+                	if (LTSscore == -1) {
+                		LOG.warn("Got invalid LTS score for node {}, setting to 0 (undefined)", iv.toString());
+                		LTSscore = 0;
+                	}
+                	
+                	iv.LTSscore = LTSscore;                	
+                }
+                
                 intersectionNodes.put(nid, iv);
                 endpoints.add(iv);
             }

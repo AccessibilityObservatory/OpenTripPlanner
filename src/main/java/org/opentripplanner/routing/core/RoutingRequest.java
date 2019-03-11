@@ -176,6 +176,9 @@ public class RoutingRequest implements Cloneable, Serializable {
     public int elevatorHopCost = 20;
 
     // it is assumed that getting off an elevator is completely free
+    
+    /** Maximum LTS score allowed for bike routing **/
+    public byte maxLTS;
 
     /** Time to get on and off your own bike */
     public int bikeSwitchTime;
