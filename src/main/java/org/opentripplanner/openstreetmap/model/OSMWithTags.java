@@ -310,7 +310,7 @@ public class OSMWithTags {
     	}
     	
     	byte LTSbyte = Byte.parseByte(LTSstring);
-    	if (LTSbyte >= 0 && LTSbyte <= 4) {
+    	if (LTSbyte >= 1 && LTSbyte <= 4) {
     		return LTSbyte;
     	} else {
     		return Byte.MAX_VALUE;

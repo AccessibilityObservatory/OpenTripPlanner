@@ -691,7 +691,7 @@ public class OpenStreetMapModule implements GraphBuilderModule {
                 street.LTSscore = way.getLTSscore();
                 
                 if (street.LTSscore == Byte.MAX_VALUE && street.getPermission().allows(TraverseMode.BICYCLE)) {
-                	LOG.warn("Undefined LTS score for bikeable way {}", way.getId());
+                	LOG.warn("Undefined LTS score for bikeable way {}; will not be routable by bike", way.getId());
                 }
                 
             }
@@ -709,15 +709,10 @@ public class OpenStreetMapModule implements GraphBuilderModule {
                 backStreet.setNoThruTraffic(noThruTraffic);
                 
                 // Set LTS level from OSM tags
-                byte LTSscore = way.getLTSscore();
-                if (LTSscore == -1) {
-                	LOG.warn("Got invalid LTS score for way {}, setting to 0 (undefined)", backStreet.toString());
-                	LTSscore = 0;
-                }
-                backStreet.LTSscore = LTSscore;
-
-                if (LTSscore == 0 && street.getPermission().allows(TraverseMode.BICYCLE)) {
-                	LOG.warn("Undefined LTS score for bikeable way {}", way.getId());
+                backStreet.LTSscore = way.getLTSscore();
+                
+                if (backStreet.LTSscore == Byte.MAX_VALUE && street.getPermission().allows(TraverseMode.BICYCLE)) {
+                	LOG.warn("Undefined LTS score for bikeable way {}; will not be routable by bike", way.getId());
                 }
             }
         }
