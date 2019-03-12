@@ -187,6 +187,9 @@ public class StreetEdge extends Edge implements Cloneable {
                 return false;
             }
         }
+        if (mode == TraverseMode.BICYCLE) {
+        	return (getPermission().allows(mode) && LTSscore <= options.maxLTS);
+        }
         return getPermission().allows(mode);
     }
 

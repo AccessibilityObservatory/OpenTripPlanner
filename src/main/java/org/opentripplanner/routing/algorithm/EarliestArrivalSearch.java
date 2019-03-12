@@ -79,7 +79,7 @@ public class EarliestArrivalSearch {
             Vertex u_vertex = u.getVertex();
             if (!spt.visit(u))
                 continue;
-            Collection<Edge> edges = options.arriveBy ? u_vertex.getIncoming() : u_vertex.getOutgoing();
+            Collection<Edge> edges = options.arriveBy ? u_vertex.getIncoming() : u_vertex.getOutgoing(options);
             for (Edge edge : edges) {
                 for (State v = edge.traverse(u); v != null; v = v.getNextResult()) {
                     if (isWorstTimeExceeded(v, options)) {
