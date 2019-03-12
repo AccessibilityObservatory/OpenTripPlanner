@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.opentripplanner.common.MavenVersion;
 import org.opentripplanner.common.geometry.DirectionUtils;
+import org.opentripplanner.routing.core.RoutingRequest;
 import org.opentripplanner.routing.edgetype.StreetEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,9 +54,9 @@ public abstract class Vertex implements Serializable, Cloneable {
 
     private final double y;
     
-    private transient Edge[] incoming = new Edge[0];
+    protected transient Edge[] incoming = new Edge[0];
 
-    private transient Edge[] outgoing = new Edge[0];
+    protected transient Edge[] outgoing = new Edge[0];
 
     
     /* CONSTRUCTORS */
@@ -178,6 +179,15 @@ public abstract class Vertex implements Serializable, Cloneable {
      */
     public Collection<Edge> getOutgoing() {
         return Arrays.asList(outgoing);
+    }
+    
+    /**
+     * Get a collection containing all the edges leading from this vertex, filtered to 
+     * reflect whether this vertex itself is traversable according to the specified routing
+     * request.
+     */
+    public Collection<Edge> getOutgoing(RoutingRequest options) {
+    	return this.getOutgoing();
     }
 
     /** Get a collection containing all the edges leading from other vertices to this vertex. */

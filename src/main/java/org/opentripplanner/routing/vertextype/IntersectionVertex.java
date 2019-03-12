@@ -13,6 +13,12 @@
 
 package org.opentripplanner.routing.vertextype;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.opentripplanner.routing.core.RoutingRequest;
+import org.opentripplanner.routing.graph.Edge;
 import org.opentripplanner.routing.graph.Graph;
 
 /**
@@ -52,6 +58,22 @@ public class IntersectionVertex extends StreetVertex {
 
     public IntersectionVertex(Graph g, String label, double x, double y) {
         this(g, label, x, y, label);
+    }
+    
+    /**
+     * Get a collection containing all the edges leading from this vertex, filtered to 
+     * reflect whether this vertex itself is traversable according to the specified routing
+     * request.
+     */
+    @Override
+    public Collection<Edge> getOutgoing(RoutingRequest options) {
+    	// Check traversability of this intersection based on LTS score
+    	if (LTSscore <= options.maxLTS) {
+    		return this.getOutgoing();
+    	} else {
+    		return new ArrayList<Edge>(0);
+    	}
+    	
     }
 
 }
