@@ -306,14 +306,14 @@ public class OSMWithTags {
     	String LTSstring = getTag("LTSrank");
     	
     	if (LTSstring == null) {
-    		return 0;
+    		return Byte.MAX_VALUE;
     	}
     	
     	byte LTSbyte = Byte.parseByte(LTSstring);
     	if (LTSbyte >= 0 && LTSbyte <= 4) {
     		return LTSbyte;
     	} else {
-    		return -1;
+    		return Byte.MAX_VALUE;
     	}
     }
     

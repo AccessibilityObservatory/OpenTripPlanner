@@ -688,14 +688,9 @@ public class OpenStreetMapModule implements GraphBuilderModule {
                 street.setNoThruTraffic(noThruTraffic);
                 
                 // Set LTS level from OSM tags
-                byte LTSscore = way.getLTSscore();
-                if (LTSscore == -1) {
-                	LOG.warn("Got invalid LTS score for way {}, setting to 0 (undefined)", street.toString());
-                	LTSscore = 0;
-                }
-                street.LTSscore = LTSscore;
+                street.LTSscore = way.getLTSscore();
                 
-                if (LTSscore == 0 && street.getPermission().allows(TraverseMode.BICYCLE)) {
+                if (street.LTSscore == Byte.MAX_VALUE && street.getPermission().allows(TraverseMode.BICYCLE)) {
                 	LOG.warn("Undefined LTS score for bikeable way {}", way.getId());
                 }
                 
