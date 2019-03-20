@@ -711,7 +711,7 @@ public class OpenStreetMapModule implements GraphBuilderModule {
                 // Set LTS level from OSM tags
                 backStreet.LTSscore = way.getLTSscore();
                 
-                if (backStreet.LTSscore == Byte.MAX_VALUE && street.getPermission().allows(TraverseMode.BICYCLE)) {
+                if (backStreet.LTSscore == Byte.MAX_VALUE && backStreet.getPermission().allows(TraverseMode.BICYCLE)) {
                 	LOG.warn("Undefined LTS score for bikeable way {}; will not be routable by bike", way.getId());
                 }
             }
