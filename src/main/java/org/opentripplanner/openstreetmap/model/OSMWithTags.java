@@ -18,6 +18,8 @@ package org.opentripplanner.openstreetmap.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.python.jline.internal.Log;
+
 /**
  * A base class for OSM entities containing common methods.
  */
@@ -141,8 +143,10 @@ public class OSMWithTags {
      * {@link org.opentripplanner.graph_builder.module.osm.OpenStreetMapModule#processRelations processRelations}
      */
     public String getAssumedName() {
-        if (_tags.containsKey("name"))
-            return _tags.get("name");
+        if (_tags.containsKey("name")) {
+        	Log.info("returning assumed name based on name tag");
+            return "<osm:way:" + id +">-" + _tags.get("name");
+        }
 
         if (_tags.containsKey("otp:route_name"))
             return _tags.get("otp:route_name");
