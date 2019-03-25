@@ -8,7 +8,7 @@ import org.opentripplanner.routing.edgetype.StreetTraversalPermission;
  * 
  * @author avi
  */
-public class TraversalRequirements {
+public class TraversalRequirements {	
 
     /**
      * Modes allowed in graph traversal. Defaults to allowing all.
@@ -41,6 +41,16 @@ public class TraversalRequirements {
      * Specific requirements for walking a bicycle.
      */
     private TraversalRequirements bikeWalkingRequirements;
+    
+    /**
+     * If true, edges must meet LTS requireents
+     */
+    private boolean checkLTS;
+    
+    /**
+     * The maximum LTS level that can be traversed.
+     */
+    private byte maxLTS;
 
     /**
      * Default constructor.
@@ -85,6 +95,8 @@ public class TraversalRequirements {
         req.maxWheelchairSlope = options.maxSlope;
         req.maxWalkDistance = options.maxWalkDistance;
         req.surfaceOnly = options.attachSurfaceOnly;
+        req.maxLTS = options.maxLTS;
+        req.checkLTS = options.checkLTS;
     }
 
     /**
@@ -111,6 +123,11 @@ public class TraversalRequirements {
             if (!e.onSurfaceLevel) {
                 return false;
             }
+        }
+        
+        if (checkLTS) {
+        	if (e.LTSscore > maxLTS)
+        		return false;
         }
         
         return e.getPermission().allows(modes);        
