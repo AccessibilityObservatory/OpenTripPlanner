@@ -177,6 +177,8 @@ public class RoutingRequest implements Cloneable, Serializable {
 
     // it is assumed that getting off an elevator is completely free
     
+    public boolean checkLTS = false;
+    
     /** Maximum LTS score allowed for bike routing **/
     public byte maxLTS;
 
@@ -499,6 +501,7 @@ public class RoutingRequest implements Cloneable, Serializable {
             bikeWalkingOptions.bikeSwitchTime = bikeSwitchTime;
             bikeWalkingOptions.bikeSwitchCost = bikeSwitchCost;
             bikeWalkingOptions.stairsReluctance = stairsReluctance * 5; // carrying bikes on stairs is awful
+            bikeWalkingOptions.attachSurfaceOnly = attachSurfaceOnly;
         } else if (modes.getCar()) {
             bikeWalkingOptions = new RoutingRequest();
             bikeWalkingOptions.setArriveBy(this.arriveBy);
