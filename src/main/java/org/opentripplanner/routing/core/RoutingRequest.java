@@ -179,6 +179,8 @@ public class RoutingRequest implements Cloneable, Serializable {
     
     public boolean checkLTS = false;
     
+    public boolean intersectionLTS = false;
+    
     /** Maximum LTS score allowed for bike routing **/
     public byte maxLTS;
 
