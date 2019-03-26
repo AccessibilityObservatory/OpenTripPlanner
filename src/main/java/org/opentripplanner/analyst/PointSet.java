@@ -50,6 +50,8 @@ public class PointSet implements Serializable {
     public String id;
     public String label;
     public String description;
+    
+    private String name = null;
 
     public Map<String, PropertyMetadata> propMetadata = new HashMap<String, PropertyMetadata>();
     // TODO why is this concurrent? what two threads are modifying the hashmap simultaneously?
@@ -113,6 +115,8 @@ public class PointSet implements Serializable {
         /* If we reached here, the file is entirely readable. Start over. */
         reader = new CsvReader(filename.getAbsolutePath(), ',', Charset.forName("UTF8"));
         PointSet ret = new PointSet(nRecs);
+        ret.setName("<CSV:"+filename.getAbsolutePath()+">");
+        
         reader.readHeaders();
         if (reader.getHeaderCount() != nCols) {
             LOG.error("Number of headers changed.");
@@ -198,6 +202,8 @@ public class PointSet implements Serializable {
         it = featureCollection.features();
 
         PointSet ret = new PointSet(featureCollection.size());
+        ret.setName("<SHP:"+file.getAbsolutePath()+">");
+        
         int i=0;
         while (it.hasNext()) {
             SimpleFeature feature = it.next();
@@ -832,5 +838,20 @@ public class PointSet implements Serializable {
                 }
             }
         }
+    }
+    
+    public void setName(String newName) {
+    	this.name = newName;
+    }
+    
+    public String getName() {
+    	return this.name;
+    }
+    
+    @Override
+    public String toString() {
+    	if (this.name != null)
+    		return this.name;
+    	return super.toString();
     }
 }
