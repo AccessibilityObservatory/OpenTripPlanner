@@ -6,6 +6,10 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import java.io.IOException;
 import java.io.Serializable;
 
+import org.python.jline.internal.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * A pair of parallel histograms representing how many features are located at each amount of travel time 
  * away from from a single origin. One array contains the raw counts of features (e.g. number of places of employment
@@ -14,6 +18,8 @@ import java.io.Serializable;
  * All time values are rounded down into 1-minute bins (0-60 seconds = minute 0, 61-120 = min 1, etc.)
  */
 public class Histogram implements Serializable {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(Histogram.class);
 
     /**
      * The number features that can be reached within each one-minute bin. Index 0 is 0-1 minutes, index 50 is 50-51 
