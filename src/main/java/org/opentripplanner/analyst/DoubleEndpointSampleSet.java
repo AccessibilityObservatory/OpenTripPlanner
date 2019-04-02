@@ -8,7 +8,7 @@ import org.opentripplanner.routing.graph.Vertex;
 /**
  * We never use samples in isolation, so let's store them as a column store.
  */
-public class SampleSet {
+public class DoubleEndpointSampleSet implements SampleSet {
 
     public final PointSet pset;
 
@@ -20,7 +20,7 @@ public class SampleSet {
     protected int[] t0s;
     protected int[] t1s;
 
-    public SampleSet (PointSet pset, SampleSource sfac) {
+    public DoubleEndpointSampleSet (PointSet pset, SampleSource sfac) {
         this.pset = pset;
         v0s = new Vertex[pset.capacity];
         v1s = new Vertex[pset.capacity];
@@ -60,6 +60,10 @@ public class SampleSet {
             ret[i] = (m0 < m1) ? m0 : m1;
         }
         return ret;
+    }
+    
+    public PointSet getPointSet() {
+    	return pset;
     }
 
 }

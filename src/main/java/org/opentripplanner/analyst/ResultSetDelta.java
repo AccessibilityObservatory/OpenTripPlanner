@@ -9,7 +9,7 @@ public class ResultSetDelta extends ResultSetWithTimes {
     public int[] times2;
     public int[] delta;
 
-    public ResultSetDelta(SampleSet samples1, SampleSet samples2, TimeSurface surface1, TimeSurface surface2) {
+    public ResultSetDelta(DoubleEndpointSampleSet samples1, DoubleEndpointSampleSet samples2, TimeSurface surface1, TimeSurface surface2) {
         id = samples1.pset.id + "_" + surface1.id + "_" + surface2.id + "_delta";
 
         // Evaluate the surface at all points in the pointset

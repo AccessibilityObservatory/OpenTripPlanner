@@ -31,9 +31,9 @@ public class ResultSet implements Serializable{
 
     /** Build a new ResultSet by evaluating the given TimeSurface at all the given sample points. */
     public ResultSet(SampleSet samples, TimeSurface surface){
-        id = samples.pset.id + "_" + surface.id;
-
-        PointSet targets = samples.pset;
+    	PointSet targets = samples.getPointSet();
+    	id = targets.id + "_" + surface.id;
+        
         // Evaluate the surface at all points in the pointset
         int[] times = samples.eval(surface);
         buildHistograms(times, targets);

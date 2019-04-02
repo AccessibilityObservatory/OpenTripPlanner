@@ -63,7 +63,7 @@ public class PointSet implements Serializable {
      * to sample sets). Keeping as a graphId->sampleSet map to prevent
      * duplication of pointset when used across multiple graphs
      */
-    private Map<String, SampleSet> samples = new ConcurrentHashMap<String, SampleSet>();
+    private Map<String, DoubleEndpointSampleSet> samples = new ConcurrentHashMap<String, DoubleEndpointSampleSet>();
     
     /**
      * Map from string IDs to indices. This is a view into PointSet.ids.
@@ -457,7 +457,7 @@ public class PointSet implements Serializable {
      * gets a sample set for a given graph id -- requires graphservice to be set
      * @return sampleset for graph
      */
-    public SampleSet getSampleSet(String routerId) {
+    public DoubleEndpointSampleSet getSampleSet(String routerId) {
         if(this.graphService == null) 
             return null;
 
@@ -474,10 +474,10 @@ public class PointSet implements Serializable {
      * @return sampleset for graph
      */
 
-    public SampleSet getSampleSet(Graph g) {	
+    public DoubleEndpointSampleSet getSampleSet(Graph g) {	
         if (g == null)
             return null;
-        SampleSet sampleSet = new SampleSet(this, g.getSampleFactory());
+        DoubleEndpointSampleSet sampleSet = new DoubleEndpointSampleSet(this, g.getSampleFactory());
         this.samples.put(g.routerId, sampleSet);
         return sampleSet;
     }

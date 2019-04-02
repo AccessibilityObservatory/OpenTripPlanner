@@ -10,7 +10,7 @@ public class ResultSetWithTimes extends ResultSet {
 
     }
 
-    public ResultSetWithTimes(SampleSet samples, TimeSurface surface) {
+    public ResultSetWithTimes(DoubleEndpointSampleSet samples, TimeSurface surface) {
         super(samples, surface);
         
         // Evaluate the surface at all points in the pointset
