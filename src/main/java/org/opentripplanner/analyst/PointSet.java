@@ -267,6 +267,7 @@ public class PointSet implements Serializable {
         LOG.debug("Created PointSet from shapefile with IDs {}", IDlist);
         it.close();
         store.dispose();
+        ret.buildIdIndexMapIfNeeded();
         return ret;
     }
 
@@ -825,6 +826,7 @@ public class PointSet implements Serializable {
         // we check again if the map has been built. It's possible that it would have been built
         // by this method in another thread while this instantiation was blocked.
         if (idIndexMap == null) {
+        	LOG.info("Building index of origin IDs...");
             idIndexMap = new TObjectIntHashMap<String>(this.capacity, 1f, -1);
             
             for (int i = 0; i < this.capacity; i++) {
