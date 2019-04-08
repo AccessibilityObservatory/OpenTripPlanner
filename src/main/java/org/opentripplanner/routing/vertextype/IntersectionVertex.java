@@ -14,7 +14,6 @@
 package org.opentripplanner.routing.vertextype;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 import org.opentripplanner.routing.core.RoutingRequest;
