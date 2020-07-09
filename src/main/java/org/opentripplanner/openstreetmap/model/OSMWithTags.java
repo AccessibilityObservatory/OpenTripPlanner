@@ -304,7 +304,7 @@ public class OSMWithTags {
     }
     
     /**
-     * @return LTS score for this node/way, as byte. Returns valid values 0-4, or -1 for any other tag value to indicate an error.
+     * @return LTS score for this node/way, as byte, based on the entity's LTSrank tag. Returns valid values 1-4, or Byte.MAX_VALUE for any other value.
      */
     public byte getLTSscore() {
     	String LTSstring = getTag("LTSrank");
