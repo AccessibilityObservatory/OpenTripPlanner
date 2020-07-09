@@ -125,6 +125,7 @@ public class TraversalRequirements {
             }
         }
         
+        // TODO: Need to add traversal permissions check for bicycle here?
         if (checkLTS) {
         	if (e.LTSscore > maxLTS)
         		return false;

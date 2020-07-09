@@ -37,8 +37,8 @@ public class IntersectionVertex extends StreetVertex {
      */
     public boolean freeFlowing;
     
-    /** The LTS level of this edge, 1-4. 0 indicates undefined. */
-    public byte LTSscore = 0;
+    /** The LTS level of this edge, 1-4. Byte.MAX_VALUE indicates undefined. */
+    public byte LTSscore = Byte.MAX_VALUE;
 
     /** Returns true if this.freeFlowing or if it appears that this vertex is free-flowing */
     public boolean inferredFreeFlowing() {

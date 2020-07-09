@@ -118,8 +118,8 @@ public class StreetEdge extends Edge implements Cloneable {
     /** The angle at the start of the edge geometry. Internal representation like that of inAngle. */
     private byte outAngle;
     
-    /** The LTS level of this edge, 1-4. 0 indicates undefined. */
-    public byte LTSscore = 0;
+    /** The LTS level of this edge, 1-4. Byte.MAX_VALUE indicates undefined. */
+    public byte LTSscore = Byte.MAX_VALUE;
 
     public StreetEdge(StreetVertex v1, StreetVertex v2, LineString geometry,
                       String name, double length,
