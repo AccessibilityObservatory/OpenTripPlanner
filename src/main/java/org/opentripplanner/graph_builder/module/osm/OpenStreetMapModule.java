@@ -1204,13 +1204,7 @@ public class OpenStreetMapModule implements GraphBuilderModule {
                 
                 // Set LTS score for this vertex
                 if (iv != null) {
-                	byte LTSscore = node.getLTSscore();
-                	if (LTSscore == -1) {
-                		LOG.warn("Got invalid LTS score for node {}, setting to 0 (undefined)", iv.toString());
-                		LTSscore = 0;
-                	}
-                	
-                	iv.LTSscore = LTSscore;                	
+                	iv.LTSscore = node.getLTSscore();              	
                 }
                 
                 intersectionNodes.put(nid, iv);
