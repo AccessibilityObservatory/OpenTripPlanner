@@ -67,7 +67,7 @@ public class IntersectionVertex extends StreetVertex {
     @Override
     public Collection<Edge> getOutgoing(RoutingRequest options) {
     	// Check traversability of this intersection based on LTS score
-    	if (!options.intersectionLTS || (options.intersectionLTS && (LTSscore <= options.maxLTS))) {
+    	if (!options.checkLTS || (options.checkLTS && (LTSscore <= options.maxLTS))) {
     		return this.getOutgoing();
     	} else {
     		return new ArrayList<Edge>(0);
@@ -77,7 +77,7 @@ public class IntersectionVertex extends StreetVertex {
     
     public Collection<Edge> getIncoming(RoutingRequest options) {
     	// Check traversability of this intersection based on LTS score
-    	if (!options.intersectionLTS || (options.intersectionLTS && (LTSscore <= options.maxLTS))) {
+    	if (!options.checkLTS || (options.checkLTS && (LTSscore <= options.maxLTS))) {
     		return this.getIncoming();
     	} else {
     		return new ArrayList<Edge>(0);
