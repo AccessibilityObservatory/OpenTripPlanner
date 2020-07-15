@@ -667,6 +667,13 @@
             <artifactId>jython</artifactId>
             <version>2.7.0</version>
         </dependency>
+        
+        <!-- Some xml stuff was removed in recent Java versions -->
+        <dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
 
     </dependencies>
 
